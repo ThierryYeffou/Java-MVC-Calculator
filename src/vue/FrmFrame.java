@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.Controller;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -21,13 +24,22 @@ import java.awt.Color;
 public class FrmFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textCote;
-	private JTextField textCoteCercle;
+	private JTextField textCarre;
+	private JTextField textRond;
+	private JLabel lblSurfaceRondField;
+	private JLabel lblPerimtreRondField;
+	private JLabel lblSurfaceCarreField;
+	private JLabel lblPerimetreCarre;
+	private JLabel lblSurfaceCarre;
+	private JLabel lblPerimtreRond;
+	private JLabel lblSurfaceRond;
+	
+	private Controller controller;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -38,12 +50,38 @@ public class FrmFrame extends JFrame {
 				}
 			}
 		});
+	}*/
+	
+	public void calculCarre() {
+		controller.envoiFrameFormTypeValeur("carre", Float.parseFloat(textCarre.getText()));
+	}
+	
+	public void calculRond() {
+		controller.envoiFrameFormTypeValeur("rond", Float.parseFloat(textRond.getText()));
+	}
+	
+	public void delete() {
+		
+	}
+	
+	public void afficheResultatCarre(float perimetre, float surface) {
+		lblPerimetreCarre.setText("" + perimetre);
+		lblSurfaceCarre.setText(""+ surface);
+	}
+	
+	public void afficheResultatRond(float perimetre, float surface) {
+		lblPerimtreRond.setText("" + perimetre);
+		lblSurfaceRond.setText(""+ surface);
 	}
 
 	/**
 	 * Create the frame.
+	 * @param controller 
 	 */
-	public FrmFrame() {
+	public FrmFrame(Controller controller) {
+		
+		this.controller = controller;
+		
 		setFont(new Font("Dialog", Font.PLAIN, 45));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 539);
@@ -61,33 +99,30 @@ public class FrmFrame extends JFrame {
 		lblCt.setBounds(145, 36, 56, 16);
 		contentPane.add(lblCt);
 		
-		JLabel lblPerimtre = new JLabel("perim\u00E8tre =");
-		lblPerimtre.setBounds(144, 78, 83, 16);
-		contentPane.add(lblPerimtre);
+		JLabel lblPerimtreCarre = new JLabel("perim\u00E8tre =");
+		lblPerimtreCarre.setBounds(144, 78, 83, 16);
+		contentPane.add(lblPerimtreCarre);
 		
-		JLabel lblSurface = new JLabel("surface = ");
-		lblSurface.setBounds(144, 120, 83, 16);
-		contentPane.add(lblSurface);
+		lblSurfaceCarreField = new JLabel("surface = ");
+		lblSurfaceCarreField.setBounds(144, 120, 83, 16);
+		contentPane.add(lblSurfaceCarreField);
 		
-		textCote = new JTextField();
-		textCote.setHorizontalAlignment(SwingConstants.RIGHT);
-		textCote.setBounds(212, 36, 116, 22);
-		contentPane.add(textCote);
-		textCote.setColumns(10);
+		textCarre = new JTextField();
+		textCarre.setHorizontalAlignment(SwingConstants.RIGHT);
+		textCarre.setBounds(212, 36, 116, 22);
+		contentPane.add(textCarre);
+		textCarre.setColumns(10);
 		
-		JLabel lblPerimetreCarre = new JLabel("0");
+		lblPerimetreCarre = new JLabel("0");
 		lblPerimetreCarre.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPerimetreCarre.setBounds(272, 78, 56, 16);
 		contentPane.add(lblPerimetreCarre);
 		
-		JLabel lblSurfaceCarre = new JLabel("0");
-		lblSurfaceCarre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSurfaceCarre.setBounds(272, 120, 56, 16);
-		contentPane.add(lblSurfaceCarre);
 		
-		JButton btnButtonCarre = new JButton("button");
+		JButton btnButtonCarre = new JButton("calcul");
 		btnButtonCarre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				calculCarre();
 			}
 		});
 		btnButtonCarre.setBounds(335, 36, 97, 22);
@@ -98,34 +133,27 @@ public class FrmFrame extends JFrame {
 		lblNewLabel_1.setBounds(32, 153, 100, 100);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblCt_1 = new JLabel("c\u00F4t\u00E9 = ");
-		lblCt_1.setBounds(145, 170, 56, 16);
-		contentPane.add(lblCt_1);
+		lblPerimtreRondField = new JLabel("perim\u00E8tre = ");
+		lblPerimtreRondField.setBounds(145, 195, 82, 16);
+		contentPane.add(lblPerimtreRondField);
 		
-		JLabel lblPerimtre_1 = new JLabel("perim\u00E8tre = ");
-		lblPerimtre_1.setBounds(145, 195, 82, 16);
-		contentPane.add(lblPerimtre_1);
+		lblSurfaceRondField = new JLabel("surface = ");
+		lblSurfaceRondField.setBounds(145, 224, 82, 16);
+		contentPane.add(lblSurfaceRondField);
 		
-		JLabel lblSurface_1 = new JLabel("surface = ");
-		lblSurface_1.setBounds(145, 224, 82, 16);
-		contentPane.add(lblSurface_1);
+		textRond = new JTextField();
+		textRond.setHorizontalAlignment(SwingConstants.RIGHT);
+		textRond.setBounds(212, 167, 116, 22);
+		contentPane.add(textRond);
+		textRond.setColumns(10);
+
 		
-		textCoteCercle = new JTextField();
-		textCoteCercle.setBounds(212, 167, 116, 22);
-		contentPane.add(textCoteCercle);
-		textCoteCercle.setColumns(10);
-		
-		JLabel lblPerimetreCercle = new JLabel("0");
-		lblPerimetreCercle.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPerimetreCercle.setBounds(272, 195, 56, 16);
-		contentPane.add(lblPerimetreCercle);
-		
-		JLabel lblSurfaceCercle = new JLabel("0");
-		lblSurfaceCercle.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSurfaceCercle.setBounds(272, 224, 56, 16);
-		contentPane.add(lblSurfaceCercle);
-		
-		JButton btnButtonCercle = new JButton("button");
+		JButton btnButtonCercle = new JButton("calcul");
+		btnButtonCercle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				calculRond();
+			}
+		});
 		btnButtonCercle.setBounds(335, 166, 97, 23);
 		contentPane.add(btnButtonCercle);
 		
@@ -137,8 +165,32 @@ public class FrmFrame extends JFrame {
 		scrollPane.setViewportView(lstformes);
 		
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				delete();
+			}
+		});
 		btnDelete.setForeground(Color.RED);
 		btnDelete.setBounds(335, 467, 97, 25);
 		contentPane.add(btnDelete);
+		
+		JLabel lblRayon = new JLabel("rayon");
+		lblRayon.setBounds(145, 170, 56, 16);
+		contentPane.add(lblRayon);
+		
+		lblSurfaceCarre = new JLabel("0");
+		lblSurfaceCarre.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSurfaceCarre.setBounds(272, 120, 56, 16);
+		contentPane.add(lblSurfaceCarre);
+		
+		lblPerimtreRond = new JLabel("0");
+		lblPerimtreRond.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPerimtreRond.setBounds(272, 195, 56, 16);
+		contentPane.add(lblPerimtreRond);
+		
+		lblSurfaceRond = new JLabel("0");
+		lblSurfaceRond.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSurfaceRond.setBounds(272, 224, 56, 16);
+		contentPane.add(lblSurfaceRond);
 	}
 }
