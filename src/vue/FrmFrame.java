@@ -8,14 +8,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
+import model.Carre;
+import model.Rond;
+import model.Formes;
 
 import javax.swing.JLabel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
@@ -33,6 +38,8 @@ public class FrmFrame extends JFrame {
 	private JLabel lblSurfaceCarre;
 	private JLabel lblPerimtreRond;
 	private JLabel lblSurfaceRond;
+	private JList lstformes;
+	private DefaultListModel defautListeModel = new DefaultListModel();
 	
 	private Controller controller;
 
@@ -53,14 +60,35 @@ public class FrmFrame extends JFrame {
 	}*/
 	
 	public void calculCarre() {
-		controller.envoiFrameFormTypeValeur("carre", Float.parseFloat(textCarre.getText()));
+		controller.envoiFrameFormTypeValeur("carre",Float.parseFloat(textCarre.getText()));
 	}
 	
 	public void calculRond() {
-		controller.envoiFrameFormTypeValeur("rond", Float.parseFloat(textRond.getText()));
+		controller.envoiFrameFormTypeValeur("rond",Float.parseFloat(textRond.getText()));
 	}
 	
 	public void delete() {
+		 int index = lstformes.getSelectedIndex();
+		 defautListeModel.getElementAt(index);
+	}
+	public void miseAjourAffichage(ArrayList<Formes> formes){
+		String ligne;
+		//test du type de forme
+		defautListeModel.clear();
+		for(Formes forme : formes) {
+			if(forme instanceof Carre) {
+				//affichage message de la forme detectée dans la chaine
+				ligne = "Le CARRE de coté : " + ((Carre) forme).getCote(); //transtipage car forme n'a pas l'attribut cote
+			}
+			else {
+				ligne = "Le ROND de rayon : " + ((Rond) forme).getRayon();
+			}
+			
+			//recupération et affichage des valeurs perimetres et aires en utilisant le polymorphiste
+			ligne += " à pour perimetre: "+ forme.perimetre()+ " et pour surface : "+ forme.surface();
+			//affichage dans la jlist
+			defautListeModel.addElement(ligne);
+		}
 		
 	}
 	
@@ -161,7 +189,8 @@ public class FrmFrame extends JFrame {
 		scrollPane.setBounds(0, 282, 432, 185);
 		contentPane.add(scrollPane);
 		
-		JList lstformes = new JList();
+	    lstformes = new JList(defautListeModel);
+		lstformes.setLayoutOrientation(JList.VERTICAL_WRAP);
 		scrollPane.setViewportView(lstformes);
 		
 		JButton btnDelete = new JButton("Delete");

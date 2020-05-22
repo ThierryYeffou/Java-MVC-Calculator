@@ -20,13 +20,14 @@ public class Rond implements Formes{
 		return (float) (Math.PI * rayon * rayon);
 	}
 
-	public float getCote() {
+	public float getRayon() {
 		return rayon;
 	}
 
-	public void setCote(float rayon) {
+	public void setRayon(float rayon) {
 		this.rayon = rayon;
 	}
 
+	
 
 }
